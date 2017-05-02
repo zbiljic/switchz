@@ -41,11 +41,11 @@ public final class TreeNodeUtil {
    */
   static <V> void dumpTree(TreeNode<V> node, String outputPrefix) {
     if (node.value != null) {
-      System.out.format(" %02d:%02d %s%s[%d] %s %s %s \r\n",
+      System.out.format(" %02d:%02d %s%s[%d] %s %s %s \r%n",
         node.priority, node.maxParams, outputPrefix, String.valueOf(node.path),
         node.children.length, node.value, node.wildChild, node.nodeType);
     } else {
-      System.out.format(" %02d:%02d %s%s[%d] <> %s %s \r\n",
+      System.out.format(" %02d:%02d %s%s[%d] <> %s %s \r%n",
         node.priority, node.maxParams, outputPrefix, String.valueOf(node.path),
         node.children.length, node.wildChild, node.nodeType);
     }
