@@ -29,7 +29,7 @@ class SimpleStringStringMap extends AbstractMap<String, String> implements Map<S
   private transient Collection<String> values;
   private transient Set<Map.Entry<String, String>> entrySet;
 
-  public SimpleStringStringMap(SimpleEntry<String, String>... entries) {
+  SimpleStringStringMap(SimpleEntry<String, String>... entries) {
     if (entries == null) {
       throw new NullPointerException();
     }
