@@ -4,6 +4,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class NodeMatch<T> {
 
@@ -55,7 +56,8 @@ public final class NodeMatch<T> {
       if (params == null || params.length == 0) {
         parameters = Collections.emptyMap();
       } else {
-        parameters = new SimpleStringStringMap(params);
+        parameters = Collections.unmodifiableMap(Arrays.stream(params)
+          .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
       }
     }
     return parameters;
