@@ -40,7 +40,7 @@ public class TreeNodeTest {
       NodeMatch<Function<String, String>> match = tree.get(requests.path);
 
       Function<String, String> handler = match.getValue();
-      Map<String, String> ps = match.getParameters();
+      Map<String, String> ps = match.getParametersAsMap();
 
       if (handler == null) {
         if (!requests.nullHandler) {

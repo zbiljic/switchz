@@ -1,6 +1,5 @@
 package com.zbiljic.switchz;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 
 /**
@@ -17,7 +16,7 @@ public final class TreeNode<T> {
   /**
    * An empty immutable {@code TreeNode} array.
    */
-  private static final SimpleEntry<String, String>[] EMPTY_SIMPLE_ENTRY_ARRAY = new SimpleEntry[0];
+  private static final Param[] EMPTY_PARAM_ARRAY = new Param[0];
 
   /** The path at this node. */
   String path;
@@ -357,7 +356,7 @@ public final class TreeNode<T> {
     }
 
     TreeNode<T> n = this; // local pointer
-    SimpleEntry<String, String>[] params = EMPTY_SIMPLE_ENTRY_ARRAY;
+    Param[] params = EMPTY_PARAM_ARRAY;
     boolean tsr = false;
 
     // outer loop for walking the tree
@@ -398,11 +397,11 @@ public final class TreeNode<T> {
               // save param value
               if (params.length == 0) {
                 // lazy allocation
-                params = new SimpleEntry[0];
+                params = new Param[0];
               }
               int i = params.length;
               params = Arrays.copyOf(params, i + 1); // expand within pre-allocated capacity
-              params[i] = new SimpleEntry<>(n.path.substring(1, n.path.length()), path.substring(0, end));
+              params[i] = new Param(n.path.substring(1, n.path.length()), path.substring(0, end));
 
               // we need to go deeper!
               if (end < path.length()) {
@@ -433,11 +432,11 @@ public final class TreeNode<T> {
               // save param value
               if (params.length == 0) {
                 // lazy allocation
-                params = new SimpleEntry[0];
+                params = new Param[0];
               }
               int i = params.length;
               params = Arrays.copyOf(params, i + 1); // expand within pre-allocated capacity
-              params[i] = new SimpleEntry<>(n.path.substring(2, n.path.length()), path);
+              params[i] = new Param(n.path.substring(2, n.path.length()), path);
 
               return new NodeMatch<>(n.path, n.value, params);
             }

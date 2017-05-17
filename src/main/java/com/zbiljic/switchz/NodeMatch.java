@@ -1,6 +1,5 @@
 package com.zbiljic.switchz;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
@@ -8,9 +7,11 @@ import java.util.stream.Collectors;
 
 public final class NodeMatch<T> {
 
+  private static final Param[] EMPTY_PARAM_ARRAY = new Param[0];
+
   private final String matched;
   private final T value;
-  private final SimpleEntry<String, String>[] params;
+  private final Param[] params;
   private final boolean trailingSlashRedirect;
 
   private transient Map<String, String> parameters;
@@ -18,25 +19,25 @@ public final class NodeMatch<T> {
   public NodeMatch(boolean trailingSlashRedirect) {
     this.matched = null;
     this.value = null;
-    this.params = null;
+    this.params = EMPTY_PARAM_ARRAY;
     this.trailingSlashRedirect = trailingSlashRedirect;
   }
 
   public NodeMatch(String matched, T value) {
     this.matched = matched;
     this.value = value;
-    this.params = null;
+    this.params = EMPTY_PARAM_ARRAY;
     this.trailingSlashRedirect = false;
   }
 
-  public NodeMatch(String matched, T value, SimpleEntry<String, String>[] params) {
+  public NodeMatch(String matched, T value, Param[] params) {
     this.matched = matched;
     this.value = value;
     this.params = params;
     this.trailingSlashRedirect = false;
   }
 
-  public NodeMatch(String matched, T value, SimpleEntry<String, String>[] params, boolean trailingSlashRedirect) {
+  public NodeMatch(String matched, T value, Param[] params, boolean trailingSlashRedirect) {
     this.matched = matched;
     this.value = value;
     this.params = params;
@@ -51,13 +52,17 @@ public final class NodeMatch<T> {
     return value;
   }
 
-  public Map<String, String> getParameters() {
+  public Param[] getParameters() {
+    return params.clone();
+  }
+
+  public Map<String, String> getParametersAsMap() {
     if (parameters == null) {
       if (params == null || params.length == 0) {
         parameters = Collections.emptyMap();
       } else {
         parameters = Collections.unmodifiableMap(Arrays.stream(params)
-          .collect(Collectors.toMap(SimpleEntry::getKey, SimpleEntry::getValue)));
+          .collect(Collectors.toMap(Param::getKey, Param::getValue)));
       }
     }
     return parameters;
